@@ -1,0 +1,145 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title> Check ToDo</title>
+
+<style>
+  * { 
+    margin: 0;
+    padding: 0;
+  }
+  section {
+    display: block;
+  }
+
+  h1{
+    display: block;
+    text-align: center;
+  }
+  body {
+    padding: 2em;
+    font-size: 15px;
+    font-family: helvetica, arial, sans-serif;
+  }
+  .d2{
+  background-color: cadetblue;
+display: block;
+  width: 80%;
+  margin: 10px auto;
+  padding: 19px;
+  font-size: 16px;
+
+}
+
+  section {
+  
+  background: darkcyan;
+  color:white;
+  text-align: center;
+  width: 300px;
+  padding: 50px;
+  margin: 20px auto;
+  
+}
+input[type="submit"]{
+  width: 24%;
+ height: 30px;
+ background:blanchedalmond;
+line-height:0px;
+}
+
+
+  #newitem {
+    width: 200px;
+    height: 26px;
+
+  }
+  #todolist {
+    width: 280px;
+    margin: 10px 10px;
+  }
+  #todolist li {
+    width: 93%;
+    height: 26px;
+    text-align: left;
+    border-radius: 4px;
+    list-style: none;
+    background: cadetblue;
+    padding: 5px 10px;
+    margin-bottom: 5px;
+    position: relative;
+    line-height:23px;
+  }
+
+</style>
+</head>
+<body>
+  <header><h1> ToDo List</h1></header>
+  <section class="sec">
+    <div class="d2"> Sorry, Your Task is Empty.</div>
+    <ul id="todolist"></ul>
+    <form action="#" method="post">
+      <div>
+
+        <input type="text" name="newitem" id="newitem" 
+               placeholder="Click here to add one" required>
+        <input type="submit" value="Add">
+      </div>
+    </form>
+  </section>
+  <footer>
+  </footer>
+<script>
+(function(){
+
+  var todo = document.querySelector( '#todolist' ),
+      form = document.querySelector( 'form' ),
+      field = document.querySelector( '#newitem' );
+       var d2=document.querySelector('.d2');
+       var sec=document.querySelector('.sec');
+    
+  form.addEventListener( 'submit', function( ev ) {
+    todo.innerHTML += '<li>' + field.value + '</li>';
+    field.value = '';
+    d2.style.display="none";
+    field.focus();
+    storestate();
+    ev.preventDefault();
+  }, false);
+
+  todo.addEventListener( 'dblclick', function( ev ) {
+    var t = ev.target;
+    if ( t.tagName === 'LI' ) {
+
+t.parentNode.removeChild( t );
+if ( localStorage.todolist == null) {
+      d2.style.display="block";
+    }
+      storestate();
+    };
+    ev.preventDefault();
+  }, false);
+
+  document.addEventListener( 'DOMContentLoaded', retrievestate, false );
+  
+  function storestate() {
+    localStorage.todolist = todo.innerHTML;
+  };
+
+  function retrievestate() {
+    if ( localStorage.todolist ) {
+      todo.innerHTML = localStorage.todolist;
+      d2.style.display="none";
+    }
+    else{
+
+      d2.style.display="block";
+    }
+
+  };
+
+})();
+</script>
+</body>
+</html>
